@@ -40,7 +40,7 @@ public class DBTarefa {
         valores.put("nome_tarefa", nome_tarefa);
         valores.put("desc_tarefa", desc_tarefa);
 
-        resultado = banco.insereDado("tarega", null, valores);
+        resultado = banco.insereDado("tarefa", null, valores);
 
         if (resultado == -1)
             return "Erro ao inserir registro";

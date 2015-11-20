@@ -132,14 +132,6 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/txtv_nome_tarefa"
-            android:layout_toEndOf="@+id/txtv_nome_tarefa" />
-
     </RelativeLayout>
 
 </ScrollView>

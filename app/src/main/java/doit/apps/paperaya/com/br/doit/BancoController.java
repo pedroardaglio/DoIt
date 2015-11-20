@@ -20,7 +20,6 @@ public class BancoController {
         long resultado;
 
         db = banco.getWritableDatabase();
-        valores = new ContentValues();
 
         resultado = db.insert(tabela, nullColumnHack, valores);
         db.close();

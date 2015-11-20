@@ -42,6 +42,21 @@ public class CriaBanco extends SQLiteOpenHelper {
                 + "foreign key (id_status) references status_tarefa(id_status),"
                 + "foreign key (id_class_tarefa) references classificacao_tarefa(id_classificacao));";
         db.execSQL(sql);
+
+        sql = "insert into status_tarefa(nome_status, desc_status)"
+                + "values"
+                + "(\"Ativo\", \"Tarefa ativa\"),"
+                + "(\"Concluído\", \"Tarefa Concluída\"),"
+                + "(\"Passada\", \"Tarefa passada, mas não concluída\");";
+        db.execSQL(sql);
+
+        sql = "insert into classificacao_tarefa(nome_classificacao, desc_classificacao)"
+                + "values"
+                + "(\"Faculdade\", \"Trabalhos, tarefas, provas e eventos da faculdade\"),"
+                + "(\"Trabalho\", \"Assuntos, reuniões e tarefas relacionadas ao trabalho\"),"
+                + "(\"Esportes\", \"Atividades esportivas\"),"
+                + "(\"Música\", \"Estudo dirigido a área musical\");";
+        db.execSQL(sql);
     }
 
     @Override
