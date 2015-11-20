@@ -2,6 +2,7 @@ package doit.apps.paperaya.com.br.doit;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -31,4 +32,21 @@ public class BancoController {
 
         return resultado;  // -1 erro, senao foi ok
     }
+
+    // Carrega todos os dados, sem parametros/where
+    public Cursor carregaDados(String tabela, String[] campos){
+        Cursor cursor;
+        db = banco.getReadableDatabase();
+        cursor = db.query(tabela, campos, null, null, null, null, null, null);
+
+        if (cursor != null){
+            cursor.moveToFirst();
+        }
+
+        db.close();
+
+        return cursor;
+    }
+
+
 }

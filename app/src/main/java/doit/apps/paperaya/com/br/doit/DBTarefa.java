@@ -2,6 +2,7 @@ package doit.apps.paperaya.com.br.doit;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 /**
  * Created by pedro on 11/20/15.
@@ -45,5 +46,15 @@ public class DBTarefa {
             return "Erro ao inserir registro";
         else
             return "Registro inserido com sucesso";
+    }
+
+    public Cursor carregaDados(){
+        Cursor cursor;
+        String[] campos = {"id_tarefa", "nome_tarefa", "dt_inicio", "dt_final", "desc_tarefa", "id_status", "id_class_tarefa"};
+        BancoController banco = new BancoController(getContext());
+
+        cursor = banco.carregaDados("tarefa", campos);
+
+        return cursor;
     }
 }

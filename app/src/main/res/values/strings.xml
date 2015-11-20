@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Do It</string>
+    <string name="title_activity_lista_tarefas">ListaTarefas</string>
 </resources>
