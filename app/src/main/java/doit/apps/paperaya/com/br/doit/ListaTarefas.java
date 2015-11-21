@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ListaTarefas extends AppCompatActivity {
     private ListView lista;
+
+    private ArrayList<Tarefa> lista_tarefas = new ArrayList<Tarefa>();
+    private ListaTarefasAdapter tarefa_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +28,24 @@ public class ListaTarefas extends AppCompatActivity {
 
         DBTarefa tarefa_db = new DBTarefa(getBaseContext());
         final Cursor cursor = tarefa_db.carregaDados();
+        // _id, id_tarefa, dt_inicio, dt_final, id_status, id_class_tarefa, nome_tarefa, desc_tarefa
 
-        String[] nome_campos = new String[] {"id_tarefa", "nome_tarefa"};
-        int[] id_views = new int[] {R.id.layout_id_tarefa, R.id.layout_nome_tarefa};
+        cursor.moveToFirst();
+        while(cursor.isAfterLast() == false){
+            Tarefa tarefa = new Tarefa();
 
-        SimpleCursorAdapter adaptador = new SimpleCursorAdapter(getBaseContext(),
-                R.layout.lista_tarefas_layout, cursor, nome_campos, id_views, 0);
-        lista = (ListView) findViewById(R.id.listView);
-        lista.setAdapter(adaptador);
+            tarefa.set_nome_tarefa(cursor.getString(6));
+            tarefa.set_dt_inicio(cursor.getString(2));
+            tarefa.set_dt_final(cursor.getString(3));
+
+            lista_tarefas.add(tarefa);
+
+            cursor.moveToNext();
+        } // end while
+
+        lista = (ListView) findViewById(R.id.lstv_tarefas);
+        tarefa_adapter = new ListaTarefasAdapter(getBaseContext(), R.layout.layout_tarefa, lista_tarefas);
+        lista.setAdapter(tarefa_adapter);
 
         FloatingActionButton fab_cadastrar_tarefa = (FloatingActionButton) findViewById(R.id.fab_adicionar_tarefa);
         fab_cadastrar_tarefa.setOnClickListener(new View.OnClickListener() {

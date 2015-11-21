@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".CadastroTarefa" >
         </activity>
+        <activity android:name=".teste" >
+        </activity>
     </application>
 
 </manifest>
