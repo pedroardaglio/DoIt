@@ -36,7 +36,8 @@ public class BancoController {
     public Cursor carregaDados(String tabela, String[] campos){
         Cursor cursor;
         db = banco.getReadableDatabase();
-        cursor = db.query(tabela, campos, null, null, null, null, null, null);
+        cursor = db.rawQuery("SELECT id_tarefa as _id, * FROM tarefa ORDER BY dt_inicio", null);
+//        cursor = db.query(tabela, campos, null, null, null, null, "dt_inicio", null);
 
         if (cursor != null){
             cursor.moveToFirst();

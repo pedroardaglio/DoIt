@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CriaBanco extends SQLiteOpenHelper {
     public static final String NOME_BANCO = "banco.db";
-    public static final int VERSAO = 1;
+    public static final int VERSAO = 4;
 
     public CriaBanco(Context context){
         super(context, NOME_BANCO, null, VERSAO);
@@ -20,23 +20,23 @@ public class CriaBanco extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
     // Cria o banco de dados. So e' executado na primeira vez
         String sql = "create table status_tarefa("
-            + "id_status_tarefa int primary key,"
+            + "id_status_tarefa integer primary key autoincrement,"
             + "nome_status text,"
             + "desc_status text);";
         db.execSQL(sql);
 
         sql = "create table classificacao_tarefa("
-                + "id_classificacao int primary key,"
+                + "id_classificacao integer primary key autoincrement,"
                 + "nome_classificacao text,"
                 + "desc_classificacao text);";
         db.execSQL(sql);
 
         sql = "create table tarefa("
-                + "id_tarefa int primary key,"
+                + "id_tarefa integer primary key autoincrement,"
                 + "dt_inicio datetime,"
                 + "dt_final datetime,"
-                + "id_status int,"
-                + "id_class_tarefa int,"
+                + "id_status integer,"
+                + "id_class_tarefa integer,"
                 + "nome_tarefa text,"
                 + "desc_tarefa text,"
                 + "foreign key (id_status) references status_tarefa(id_status),"
