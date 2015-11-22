@@ -8,7 +8,7 @@
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context="doit.apps.paperaya.com.br.doit.CadastroTarefa"
+    tools:context="doit.apps.paperaya.com.br.doit.activities.CadastroTarefa"
     android:id="@+id/CadastroTarefaScrv">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -70,14 +70,34 @@
             android:layout_marginTop="30dp" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/etxt_dt_inicio"
             android:layout_below="@+id/txtv_dt_inicio"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Hora:"
+            android:id="@+id/txtv_hr_inicio"
+            android:layout_alignTop="@+id/txtv_dt_inicio"
+            android:layout_alignLeft="@+id/etxt_hr_inicio"
+            android:layout_alignStart="@+id/etxt_hr_inicio" />
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/etxt_hr_inicio"
+            android:layout_alignTop="@+id/etxt_dt_inicio"
+            android:layout_toRightOf="@+id/etxt_dt_inicio"
+            android:layout_toEndOf="@+id/etxt_dt_inicio"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,8 +117,28 @@
             android:layout_below="@+id/txtv_dt_final"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignRight="@+id/etxt_dt_inicio"
+            android:layout_alignEnd="@+id/etxt_dt_inicio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Hora:"
+            android:id="@+id/txtv_hr_final"
+            android:layout_alignTop="@+id/txtv_dt_final"
+            android:layout_alignLeft="@+id/etxt_hr_final"
+            android:layout_alignStart="@+id/etxt_hr_final" />
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/etxt_hr_final"
+            android:layout_alignTop="@+id/etxt_dt_final"
+            android:layout_toRightOf="@+id/etxt_dt_final"
+            android:layout_toEndOf="@+id/etxt_dt_final"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp" />
 
         <TextView
             android:layout_width="wrap_content"

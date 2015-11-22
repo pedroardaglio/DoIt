@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".PerfilActivity" >
+        <activity android:name=".activities.PerfilActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,13 +16,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListaTarefas"
+            android:name=".activities.ListaTarefas"
             android:label="@string/title_activity_lista_tarefas"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".CadastroTarefa" >
-        </activity>
-        <activity android:name=".teste" >
+        <activity android:name=".activities.CadastroTarefa" >
         </activity>
     </application>
 
