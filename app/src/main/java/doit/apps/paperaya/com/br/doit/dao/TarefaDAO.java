@@ -1,20 +1,22 @@
-package doit.apps.paperaya.com.br.doit;
+package doit.apps.paperaya.com.br.doit.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import doit.apps.paperaya.com.br.doit.banco.BancoController;
+
 /**
  * Created by pedro on 11/20/15.
  */
-public class DBTarefa {
+public class TarefaDAO {
     private Context context;
 
-    public DBTarefa(){
+    public TarefaDAO(){
 
     }
 
-    public DBTarefa(Context context){
+    public TarefaDAO(Context context){
         this.context = context;
     }
 
@@ -22,7 +24,7 @@ public class DBTarefa {
         return context;
     }
 
-    public DBTarefa setContext(Context context) {
+    public TarefaDAO setContext(Context context) {
         this.context = context;
         return this;
     }
@@ -51,9 +53,10 @@ public class DBTarefa {
     public Cursor carregaDados(){
         Cursor cursor;
         String[] campos = {"id_tarefa", "nome_tarefa", "dt_inicio", "dt_final", "desc_tarefa", "id_status", "id_class_tarefa"};
+        String query = "SELECT id_tarefa as _id, * FROM tarefa ORDER BY dt_inicio";
         BancoController banco = new BancoController(getContext());
 
-        cursor = banco.carregaDados("tarefa", campos);
+        cursor = banco.carregaDados("tarefa", null, query);
 
         return cursor;
     }

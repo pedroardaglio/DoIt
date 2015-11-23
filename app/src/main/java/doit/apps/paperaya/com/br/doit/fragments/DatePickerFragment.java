@@ -37,9 +37,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         else
             ano = Integer.toString(arg1);
         if (arg2 < 10)
-            mes = "0" + Integer.toString(arg2);
+            mes = "0" + Integer.toString(arg2 + 1); // Ele sempre tras com um numero abaixo (provavelmente comeca a partir do mes 0 (janeiro))
         else
-            mes = Integer.toString(arg2);
+            mes = Integer.toString(arg2 + 1); // Ele sempre tras com um numero abaixo (provavelmente comeca a partir do mes 0 (janeiro))
         if (arg3 < 10)
             dia = "0" + Integer.toString(arg3);
         else

@@ -144,21 +144,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="ID Classificação:"
+            android:text="Classificação:"
             android:id="@+id/txtv_id_classificacao"
             android:layout_below="@+id/etxt_dt_final"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="30dp" />
 
-        <EditText
+        <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/etxt_id_classificacao"
-            android:layout_below="@+id/txtv_id_classificacao"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
+            android:id="@+id/spn_classificacao"
+            android:layout_alignBaseline="@+id/txtv_id_classificacao"
+            android:layout_alignBottom="@+id/txtv_id_classificacao"
+            android:layout_alignParentRight="false"
             android:layout_alignParentEnd="true" />
 
         <Button
@@ -166,11 +165,11 @@
             android:layout_height="wrap_content"
             android:text="Cadastrar"
             android:id="@+id/btn_cadastrar_tarefa"
-            android:layout_below="@+id/etxt_id_classificacao"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/spn_classificacao" />
 
     </RelativeLayout>
 

@@ -7,16 +7,16 @@ import android.database.Cursor;
 import doit.apps.paperaya.com.br.doit.banco.BancoController;
 
 /**
- * Created by pedro on 11/20/15.
+ * Created by pedro on 11/22/15.
  */
-public class DBTarefa {
+public class ClassificacaoDAO {
     private Context context;
 
-    public DBTarefa(){
+    public ClassificacaoDAO(){
 
     }
 
-    public DBTarefa(Context context){
+    public ClassificacaoDAO(Context context){
         this.context = context;
     }
 
@@ -24,7 +24,7 @@ public class DBTarefa {
         return context;
     }
 
-    public DBTarefa setContext(Context context) {
+    public ClassificacaoDAO setContext(Context context) {
         this.context = context;
         return this;
     }
@@ -52,11 +52,12 @@ public class DBTarefa {
 
     public Cursor carregaDados(){
         Cursor cursor;
-        String[] campos = {"id_tarefa", "nome_tarefa", "dt_inicio", "dt_final", "desc_tarefa", "id_status", "id_class_tarefa"};
+        String query = "SELECT id_classificacao as _id, * FROM classificacao_tarefa ORDER BY id_classificacao";
         BancoController banco = new BancoController(getContext());
 
-        cursor = banco.carregaDados("tarefa", campos);
+        cursor = banco.carregaDados("classificacao_tarefa", null, query);
 
         return cursor;
     }
+
 }

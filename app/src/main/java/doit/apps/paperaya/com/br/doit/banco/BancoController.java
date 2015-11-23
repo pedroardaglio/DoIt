@@ -33,11 +33,13 @@ public class BancoController {
     }
 
     // Carrega todos os dados, sem parametros/where
-    public Cursor carregaDados(String tabela, String[] campos){
+    public Cursor carregaDados(String tabela, String[] campos, String query){
         Cursor cursor;
         db = banco.getReadableDatabase();
-        cursor = db.rawQuery("SELECT id_tarefa as _id, * FROM tarefa ORDER BY dt_inicio", null);
-//        cursor = db.query(tabela, campos, null, null, null, null, "dt_inicio", null);
+        if (query != null)
+            cursor = db.rawQuery(query, null);
+        else
+            cursor = db.query(tabela, campos, null, null, null, null, null, null);
 
         if (cursor != null){
             cursor.moveToFirst();

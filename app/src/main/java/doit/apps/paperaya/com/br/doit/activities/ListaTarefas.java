@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import doit.apps.paperaya.com.br.doit.R;
 import doit.apps.paperaya.com.br.doit.adapters.ListaTarefasAdapter;
-import doit.apps.paperaya.com.br.doit.dao.DBTarefa;
+import doit.apps.paperaya.com.br.doit.dao.TarefaDAO;
 import doit.apps.paperaya.com.br.doit.model.Tarefa;
 
 public class ListaTarefas extends AppCompatActivity {
@@ -29,7 +29,7 @@ public class ListaTarefas extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DBTarefa tarefa_db = new DBTarefa(getBaseContext());
+        TarefaDAO tarefa_db = new TarefaDAO(getBaseContext());
         final Cursor cursor = tarefa_db.carregaDados();
         // _id, id_tarefa, dt_inicio, dt_final, id_status, id_class_tarefa, nome_tarefa, desc_tarefa
 

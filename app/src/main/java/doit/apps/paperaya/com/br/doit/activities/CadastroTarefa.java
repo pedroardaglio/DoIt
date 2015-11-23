@@ -1,19 +1,30 @@
 package doit.apps.paperaya.com.br.doit.activities;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import doit.apps.paperaya.com.br.doit.R;
-import doit.apps.paperaya.com.br.doit.dao.DBTarefa;
+import doit.apps.paperaya.com.br.doit.adapters.ListaTarefasAdapter;
+import doit.apps.paperaya.com.br.doit.dao.ClassificacaoDAO;
+import doit.apps.paperaya.com.br.doit.dao.TarefaDAO;
 import doit.apps.paperaya.com.br.doit.fragments.DatePickerFragment;
 import doit.apps.paperaya.com.br.doit.fragments.TimePickerFragment;
+import doit.apps.paperaya.com.br.doit.model.Tarefa;
 import doit.apps.paperaya.com.br.doit.util.DateTime;
+import doit.apps.paperaya.com.br.doit.util.SpinnerObject;
 
 public class CadastroTarefa extends AppCompatActivity {
 
@@ -23,6 +34,7 @@ public class CadastroTarefa extends AppCompatActivity {
     private EditText hr_inicio;
     private EditText dt_final;
     private EditText hr_final;
+    private Spinner spn_classificacao;
     private EditText id_classificacao;
 
     @Override
@@ -36,7 +48,8 @@ public class CadastroTarefa extends AppCompatActivity {
         hr_inicio = (EditText) findViewById(R.id.etxt_hr_inicio);
         dt_final = (EditText) findViewById(R.id.etxt_dt_final);
         hr_final = (EditText) findViewById(R.id.etxt_hr_final);
-        id_classificacao = (EditText) findViewById(R.id.etxt_id_classificacao);
+        spn_classificacao = (Spinner) findViewById(R.id.spn_classificacao);
+//        id_classificacao = (EditText) findViewById(R.id.etxt_id_classificacao);
 
         Button botao_cadastrar = (Button) findViewById(R.id.btn_cadastrar_tarefa);
 
@@ -104,11 +117,31 @@ public class CadastroTarefa extends AppCompatActivity {
             }
         });
 
+        List<SpinnerObject> list_class_spn = new ArrayList<SpinnerObject>();
+
+        ClassificacaoDAO class_db = new ClassificacaoDAO(getBaseContext());
+        final Cursor cursor = class_db.carregaDados();
+        cursor.moveToFirst();
+
+        while(cursor.isAfterLast() == false){
+            SpinnerObject spn_tmp = new SpinnerObject(Integer.parseInt(cursor.getString(1)), cursor.getString(2));
+            list_class_spn.add(spn_tmp);
+            cursor.moveToNext();
+        } // end while
+
+        // Creating adapter for spinner
+        ArrayAdapter<SpinnerObject> spn_adapter = new ArrayAdapter<SpinnerObject>(this,
+                android.R.layout.simple_spinner_item, list_class_spn);
+        // Drop down layout style - list view with radio button
+        spn_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        spn_classificacao.setAdapter(spn_adapter);
+
         botao_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DBTarefa tarefa_db = new DBTarefa(getBaseContext());
+                TarefaDAO tarefa_db = new TarefaDAO(getBaseContext());
                 String resultado, dt_hr_inicio, dt_hr_final;
 
                 // Obtendo os valores
@@ -118,7 +151,8 @@ public class CadastroTarefa extends AppCompatActivity {
                 String hr_inicio_str = hr_inicio.getText().toString();
                 String dt_final_str = dt_final.getText().toString();
                 String hr_final_str = hr_final.getText().toString();
-                int id_classificacao_int = Integer.parseInt(id_classificacao.getText().toString());
+                int id_classificacao_int; //Integer.parseInt(id_classificacao.getText().toString());
+                id_classificacao_int = ((SpinnerObject) spn_classificacao.getSelectedItem()).getId();
 
                 // Formatando a data corretamente para o datetime do sqlite
                 dt_hr_inicio = DateTime.data_completa_sqlite(dt_inicio_str, hr_inicio_str);
