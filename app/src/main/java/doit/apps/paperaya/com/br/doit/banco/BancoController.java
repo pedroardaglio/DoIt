@@ -50,5 +50,14 @@ public class BancoController {
         return cursor;
     }
 
+    public long alterar_dado(String tabela, ContentValues valores, String where, String[] where_args){
+        long resultado;
+        db = banco.getWritableDatabase();
+
+        resultado = db.update(tabela, valores, where, where_args);
+        db.close();
+        return resultado;
+    }
+
 
 }

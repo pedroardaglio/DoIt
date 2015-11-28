@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -49,6 +50,19 @@ public class ListaTarefas extends AppCompatActivity {
         lista = (ListView) findViewById(R.id.lstv_tarefas);
         tarefa_adapter = new ListaTarefasAdapter(getBaseContext(), R.layout.layout_tarefa, lista_tarefas);
         lista.setAdapter(tarefa_adapter);
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String codigo;
+                cursor.moveToPosition(position);
+                codigo = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
+                Intent intent = new Intent(ListaTarefas.this, CadastroTarefa.class);
+                intent.putExtra("codigo", codigo);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         FloatingActionButton fab_cadastrar_tarefa = (FloatingActionButton) findViewById(R.id.fab_adicionar_tarefa);
         fab_cadastrar_tarefa.setOnClickListener(new View.OnClickListener() {

@@ -36,11 +36,22 @@ public class CadastroTarefa extends AppCompatActivity {
     private EditText hr_final;
     private Spinner spn_classificacao;
     private EditText id_classificacao;
+    String codigo;
+    int codigo_int;
+    Tarefa tarefa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_tarefa);
+
+        if (this.getIntent().hasExtra("codigo"))
+            codigo = this.getIntent().getStringExtra("codigo");
+        if (!codigo.isEmpty()){
+            codigo_int = Integer.parseInt(codigo);
+            TarefaDAO tarefa_dao = new TarefaDAO(getBaseContext());
+            tarefa = tarefa_dao.tarefa_por_id(codigo_int);
+        }
 
         nome_tarefa = (EditText) findViewById(R.id.etxt_nome_tarefa);
         desc_tarefa = (EditText) findViewById(R.id.etxt_desc_tarefa);
@@ -50,8 +61,19 @@ public class CadastroTarefa extends AppCompatActivity {
         hr_final = (EditText) findViewById(R.id.etxt_hr_final);
         spn_classificacao = (Spinner) findViewById(R.id.spn_classificacao);
 //        id_classificacao = (EditText) findViewById(R.id.etxt_id_classificacao);
+        if (!codigo.isEmpty()){
+            nome_tarefa.setText(tarefa.get_nome_tarefa());
+            desc_tarefa.setText(tarefa.get_desc_tarefa());
+            dt_inicio.setText(tarefa.get_dt_inicio_fmt());
+            dt_final.setText(tarefa.get_dt_final_fmt());
+            hr_inicio.setText(tarefa.get_hr_inicio());
+            hr_final.setText(tarefa.get_hr_final());
+        }
 
         Button botao_cadastrar = (Button) findViewById(R.id.btn_cadastrar_tarefa);
+        // Mudar o texto do botão se for alteração
+        if (!codigo.isEmpty())
+            botao_cadastrar.setText("Alterar");
 
         dt_inicio.setInputType(InputType.TYPE_NULL);
         dt_inicio.setOnClickListener(new View.OnClickListener() {
@@ -129,13 +151,14 @@ public class CadastroTarefa extends AppCompatActivity {
             cursor.moveToNext();
         } // end while
 
-        // Creating adapter for spinner
         ArrayAdapter<SpinnerObject> spn_adapter = new ArrayAdapter<SpinnerObject>(this,
                 android.R.layout.simple_spinner_item, list_class_spn);
-        // Drop down layout style - list view with radio button
         spn_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
         spn_classificacao.setAdapter(spn_adapter);
+        if (!codigo.isEmpty()) {
+            spn_classificacao.setSelection(tarefa.get_id_class_tarefa() - 1);
+        }
+
 
         botao_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +180,10 @@ public class CadastroTarefa extends AppCompatActivity {
                 // Formatando a data corretamente para o datetime do sqlite
                 dt_hr_inicio = DateTime.data_completa_sqlite(dt_inicio_str, hr_inicio_str);
                 dt_hr_final = DateTime.data_completa_sqlite(dt_final_str, hr_final_str);
-                resultado = tarefa_db.insereDado(dt_hr_inicio, dt_hr_final, 1, id_classificacao_int, nome_tarefa_str, desc_tarefa_str);
+                if (codigo.isEmpty())
+                    resultado = tarefa_db.insereDado(dt_hr_inicio, dt_hr_final, 1, id_classificacao_int, nome_tarefa_str, desc_tarefa_str);
+                else
+                    resultado = tarefa_db.alterar_tarefa(codigo_int, dt_hr_inicio, dt_hr_final, 1, id_classificacao_int, nome_tarefa_str, desc_tarefa_str);
 
                 Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
 

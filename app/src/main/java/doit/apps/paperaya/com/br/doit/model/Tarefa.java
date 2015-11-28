@@ -49,7 +49,7 @@ public class Tarefa {
         this.desc_tarefa = desc_tarefa;
     }
 
-    public String get_dt_inicio() {
+    public String get_dt_inicio_full() {
         return dt_inicio;
     }
 
@@ -57,7 +57,7 @@ public class Tarefa {
         this.dt_inicio = dt_inicio;
     }
 
-    public String get_dt_final() {
+    public String get_dt_final_full() {
         return dt_final;
     }
 
@@ -143,6 +143,32 @@ public class Tarefa {
 
     public String get_dia_inicio(){
         return this.dt_inicio.substring(8, 10);
+    }
+
+    public String get_dt_inicio_fmt(){
+        String dia, mes, ano;
+        dia = this.dt_inicio.substring(8, 10);
+        mes = this.dt_inicio.substring(5, 7);
+        ano = this.dt_inicio.substring(0, 4);
+
+        return dia + "/" + mes + "/" + ano;
+    }
+
+    public String get_hr_inicio(){
+        return this.dt_inicio.substring(11, 16);
+    }
+
+    public String get_dt_final_fmt(){
+        String dia, mes, ano;
+        dia = this.dt_final.substring(8, 10);
+        mes = this.dt_final.substring(5, 7);
+        ano = this.dt_final.substring(0, 4);
+
+        return dia + "/" + mes + "/" + ano;
+    }
+
+    public String get_hr_final(){
+        return this.dt_final.substring(11, 16);
     }
 
 }
